@@ -1,0 +1,14 @@
+<div class="activity-block" data-bind="css: { 'edit-mode': isExpanded }">
+    <div class="activity-block-header" data-bind="click: toggleEditor">
+        <div class="activity-block-title">
+            <span class="main-title">
+                <span></span><b>Medidor:</b><span  data-bind="textHighlighted: title, searchString: searchString"></span>
+                <span></span><b>Orden:</b><span  data-bind="textHighlighted: customer_number, visble: customer_number"></span>
+            </span></span>
+            <span><b>Ruta:</b><span data-bind="text: consLect, visible: consLect"></span>
+        </div>
+
+    </div>
+    <!-- ko if: isExpanded -->
+    <!-- /ko -->
+</div>

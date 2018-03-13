@@ -1,0 +1,33 @@
+{
+  "search-input-placeholder": "Número de Orden",
+  "meter-reading-input-placeholder": "Lectura del medidor",
+  "search-no-results-text": "No results found.",
+  "search-not-shown-results-text": "y #NUMBER# mas",
+  "last-completed-activity-title": "Anteriormente hecho:",
+  "next-activities-title": "Ordenes:",
+  "completed-meter-reading-prefix": "Terminado:",
+
+  "button-details-title": "Detalles",
+  "button-apply-title": "Aplicar",
+  "button-submit-title": "Enviar (#NUMBER#)",
+  "button-clear-search-title": "Limpiar busqueda",
+
+  "activity-status-complete": "Completado",
+  "activity-status-started": "Empezado",
+  "activity-status-deleted": "Eliminado",
+  "activity-status-suspended": "Suspendido",
+  "activity-status-cancelled": "Hecho",
+  "activity-status-notdone": "No Hecho",
+
+
+  "error-validation-incorrect-value": "Valor incorrecto",
+  "error-validation-incorrect-value-nan": "Valor vacio incorrecto.",
+  "error-validation-incorrect-value-neg": "Valor negativo incorrecto.",
+  "error-popup-title": "Error",
+  "error-unsupported-screen": "Plugin could be placed only on Activity List",
+  "error-unexpected": "Error inexperado.",
+  "error-unable-to-update": "Unable to update following Activities:",
+  "error-range-meter-reading-value": "El valor ingresa de lectura no esta en el rango.",
+  "conf-meter-reading-input-placeholder": "Confirmar lectura",
+  "obsv-meter-reading-input-placeholder": "Observaciones"
+}

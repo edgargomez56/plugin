@@ -1,0 +1,201 @@
+<div class="activity-block" data-bind="css: { 'edit-mode': isExpanded }">
+    <div class="activity-block-header" data-bind="click: toggleEditor">
+        <div class="activity-block-title">
+            <span class="main-title">
+                <span></span><b>Medidor:</b><span  data-bind="textHighlighted: title, searchString: searchString"></span>
+                <span></span><b>Orden:</b><span  data-bind="textHighlighted: customer_number, visble: customer_number"></span>
+            </span></span>
+            <span  class="address" ><b>Ruta:</b><span data-bind="text: consLect, visible: consLect"></span>
+            <span class="address"><b>Dirección:</b><span  data-bind="text: address, visible: address"></span>
+        </div>
+        <div class="activity-status" data-bind="visible: status, css: statusClass">
+            <div class="status-text" data-bind="text: status"></div>
+            <div class="status-details" data-bind="text: statusDetails, visible: statusDetails"></div>
+        </div>
+    </div>
+    <!-- ko if: isExpanded -->
+    <div class="activity-block-edit-panel">
+        <div class="activity-block-meter-reading-wrapper" data-bind="visible: isActivityEditable">
+            <b>Lectura</b>
+            <input class="form-group col-md-6 text-input meter-reading-input" type="number"
+                   data-bind="textInput: enteredMeterReading,
+                              enterPressed: applyMeterReading,
+                              escapePressed: collapseEditor,
+                              event: {
+                                focus: onInputFocus,
+                                blur: onInputBlur
+                              },
+                              attr: { placeholder: i18n('meter-reading-input-placeholder') },
+                              css: {'meter-reading-error': enteredMeterReadingOk}"/>
+            <div class="meter-reading-error" data-bind="text: meterReadingError, visible: meterReadingError"></div>
+        </div>
+        <div class="form-group col-md-6" data-bind="visible: enteredMeterReadingOk">
+            <b>Confirmar Lectura</b>
+            <input class="text-input conf-meter-reading-input" type="number"
+                   data-bind="textInput: confirmedMeterReading,
+                              enterPressed: applyMeterReading,
+                              escapePressed: collapseEditor,
+                              event: {
+                                focus: onInputFocusC,
+                                blur: onInputBlurC
+                              },
+                              attr: { placeholder: i18n('conf-meter-reading-input-placeholder') }"/>
+        </div>
+        <div  data-bind="visible: isGDO">
+            <div class="form-group col-md-6" data-bind="visible: isGDOCNL">
+                <b>Código no Lectura:</b>
+                <select class="form-control"  data-bind="value: selectedCNLGDO">
+                    <option value=""></option>
+                    <option value="GDO_10">10 - NO EXISTE INSTALACION</option>
+                    <option value="GDO_11">11 - DIGITOS ILEGIBLES DEL MEDIDOR</option>
+                    <option value="GDO_28">28 - MEDIDOR BAJO EL AGUA</option>
+                    <option value="GDO_3">3 - CASA DEMOLIDA O EN CONTRUCCION</option>
+                    <option value="GDO_32">32 - TABLERO DEL MEDIDOR CON AGUA</option>
+                    <option value="GDO_34">34 - MEDIDOR CON TALCO ROTO</option>
+                    <option value="GDO_36" selected="selected">36 - MEDIDOR DENTRO DE LA VIVIENDA</option>
+                    <option value="GDO_37">37 - MEDIDOR EMPAÑADO O SUCIO</option>
+                    <option value="GDO_39">39 - MEDIDOR ENTERRADO</option>
+                    <option value="GDO_44">44 - MEDIDOR NO LOCALIZADO</option>
+                    <option value="GDO_45">45 - MEDIDOR QUEMADO O DESTRUIDO</option>
+                    <option value="GDO_47">47- OBSTACULO EN EL MEDIDOR</option>
+                    <option value="GDO_5">5 - DIRECCION NO LOCALIZADA</option>
+                    <option value="GDO_59">59 - PROBLEMA DE INSEGURIDAD</option>
+                    <option value="GDO_6">6 - MEDIDOR FUERA DE RUTA</option>
+                    <option value="GDO_67">67 - TALCO DEL MEDIDOR PINTADO</option>
+                    <option value="GDO_71">71 - ADMON NO PERMITE INGRESO</option>
+                    <option value="GDO_9">9 - PREDIO SIN MEDIDOR</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6" data-bind="visible: !isGDOCNL()">
+                <b>Obs Lectura:</b>
+                <select class="form-control" data-bind="value: selectedOBSGDO">
+                    <option value=""></option>
+                    <option value="GDO_17">17 - CASA VACIA</option>
+                    <option value="GDO_2">2 - CAMBIO NUMERO DE MEDIDOR</option>
+                    <option value="GDO_30" selected="selected">30 - LECTURA NORMAL</option>
+                    <option value="GDO_64">64 - SERVICIO DIRECTO</option>
+                </select>
+            </div>
+        </div>
+        <div  data-bind="visible: isSTG">
+            <div class="form-group col-md-6" data-bind="visible: isSTGCNL">
+                <b>Código no Lectura:</b>
+                <select class="form-control" data-bind="value: selectedCNLSTG">
+                    <option value="STG_9" >9  - PREDIO SIN MEDIDOR            </option>
+                    <option value="STG_7"  >7  - MEDIDOR ALTO                  </option>
+                    <option value="STG_78" >78 - CORRECCION LECT CONTRATISTA   </option>
+                    <option value="STG_74" >74 - MEDIDOR SUCIO                 </option>
+                    <option value="STG_71" >71 - 1ADMON NO PERMITE INGRESO     </option>
+                    <option value="STG_70" >70 - NO EXISTE PORTERO             </option>
+                    <option value="STG_6"  >6  - MEDIDOR FUERA DE RUTA         </option>
+                    <option value="STG_67" >67 - TALCO DEL MEDIDOR PINTADO     </option>
+                    <option value="STG_64" >64 - SERVICIO DIRECTO              </option>
+                    <option value="STG_63" >63 - SE ROBARON EL MEDIDOR         </option>
+                    <option value="STG_5"  >5  - DIRECCION NO LOCALIZADA;      </option>
+                    <option value="STG_59" >59 - PROBLEMA DE INSEGURIDAD       </option>
+                    <option value="STG_55" >55 - PERRO EN PUERTA               </option>
+                    <option value="STG_47" >47 - OBSTACULO EN EL MEDIDOR       </option>
+                    <option value="STG_45" >45 - MEDIDOR QUEMADO O DESTRUIDO   </option>
+                    <option value="STG_44" >44 - MEDIDOR NO LOCALIZADO         </option>
+                    <option value="STG_3"  >3  - CASA DEMOLIDA O EN CONTRUCCION</option>
+                    <option value="STG_39" >39 - MEDIDOR ENTERRADO             </option>
+                    <option value="STG_38" >38 - MEDIDOR MAL UBICADO           </option>
+                    <option value="STG_37" >37 - MEDIDOR EMPA?ADO O SUCIO      </option>
+                    <option value="STG_36"  selected="selected">36 - MEDIDOR DENTRO DE LA VIVIENDA </option>
+                    <option value="STG_35" >35 - MEDIDOR CORROIDO              </option>
+                    <option value="STG_34" >34 - MEDIDOR CON TALCO ROTO        </option>
+                    <option value="STG_33" >33 - MEDIDOR CON ABEJAS            </option>
+                    <option value="STG_32" >32 - TABLERO DEL MEDIDOR CON AGUA  </option>
+                    <option value="STG_28" >28 - MEDIDOR BAJO EL AGUA          </option>
+                    <option value="STG_1"  >1  - DIFICIL ACCESO                </option>
+                    <option value="STG_17" >17 - CASA VACIA                    </option>
+                    <option value="STG_16" >16 - CAJA CONTADOR CON CANDADO     </option>
+                    <option value="STG_13" >13 - REJA                          </option>
+                    <option value="STG_11" >11 - DIGITOS ILEGIBLES DEL MEDIDOR </option>
+                    <option value="STG_10" >10 - NO EXISTE INSTALACION         </option>
+                </select>
+            </div>
+            <div class="form-group col-md-6" data-bind="visible: !isSTGCNL()">
+                <b>Obs Lectura:</b>
+                <select class="form-control" data-bind="value: selectedOBSSTG">
+                    <option value=""></option>
+                    <option value="STG_2">2- CAMBIO NUMERO DE MEDIDOR         </option>
+                    <option value="STG_4">4- EN REVISION X COBRO PROMEDIO     </option>
+                    <option value="STG_8">8- MEDIDOR DANADO                   </option>
+                    <option value="STG_12">12- NUMERO DE CONTADOR DIFERENTE   </option>
+                    <option value="STG_14">14- AJUSTE PROMEDIO MANUAL DEL MES </option>
+                    <option value="STG_15">15- BASTON EN MAL ESTADO           </option>
+                    <option value="STG_18">18- CLIENTE PAGA RECONEXION        </option>
+                    <option value="STG_19">19- CLIENTE PAGO IGUAL DIA PROCESO </option>
+                    <option value="STG_20">20- SUSPENDIDO DESE ACOMETIDA      </option>
+                    <option value="STG_21">21- SUSPEN. X ACOMETIDA X ANOMALIA </option>
+                    <option value="STG_22">22- ESCAPE INTERNO                 </option>
+                    <option value="STG_23">23- ESCAPE EXTERNO                 </option>
+                    <option value="STG_24">24- EXTERNA EN PREDIO AJENO        </option>
+                    <option value="STG_25">25- FALTA CAJA PROTECTORA          </option>
+                    <option value="STG_26">26- FALTA MANERAL                  </option>
+                    <option value="STG_27">27- FALTA TAPA DEL REGULADOR       </option>
+                    <option value="STG_29">29- LECTURA DESFASADA              </option>
+                    <option value="STG_30"  selected="selected">30- LECTURA NORMAL                 </option>
+                    <option value="STG_31">31- POR REVISAR EL AUXILIAR DE CAM </option>
+                    <option value="STG_40">40- MEDIDOR FRENADO                </option>
+                    <option value="STG_41">41- MEDIDOR GIRA HACIA ATRAS       </option>
+                    <option value="STG_42">42- MEDIDOR INCLINADO O DESCOLGADO </option>
+                    <option value="STG_43">43- MEDIDOR INVERTIDO              </option>
+                    <option value="STG_46">46- MEDIDOR SIN SELLO O ROTO       </option>
+                    <option value="STG_48">48- MEDIDORES TROCADOS             </option>
+                    <option value="STG_49">49- MIGRACION EFI                  </option>
+                    <option value="STG_50">50- NO HAY RESPONSABLE PARA FIRMA  </option>
+                    <option value="STG_51">51- NO BLOQUEADO, VALVULA CERRADA  </option>
+                    <option value="STG_52">52- NOTA CREDITO-DEBITO            </option>
+                    <option value="STG_53">53- OBSERVACION DIFERENTE          </option>
+                    <option value="STG_54">54- PAGO NO ASENTADO               </option>
+                    <option value="STG_56">56- POLIETILENO A LA VISTA         </option>
+                    <option value="STG_57">57- POSIBLE ANOMALIA               </option>
+                    <option value="STG_58">58- POSIBLE FUGA                   </option>
+                    <option value="STG_60">60- RECONEXION                     </option>
+                    <option value="STG_61">61- REGULADOR CORROIDO             </option>
+                    <option value="STG_62">62- REINSTALACION                  </option>
+                    <option value="STG_65">65- SUSPENSION                     </option>
+                    <option value="STG_66">66- SUSPEN.X ANOMALIA/MANIPULACION </option>
+                    <option value="STG_68">68- USO COMERCIAL                  </option>
+                    <option value="STG_69">69- VALVULA ENTERRADA              </option>
+                    <option value="STG_72">72- MEDIDOR MANIPULADO             </option>
+                    <option value="STG_73">73- POSIBLE ANOMALIA TOMA LECTURA  </option>
+                    <option value="STG_75">75- ACOMETIDA MULTIPLE             </option>
+                    <option value="STG_76">76- LECTURA PROYECTADA POR RELECT  </option>
+                    <option value="STG_77">77- INSTALACION MEDIDOR TARDIO     </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <b>¿Desea habilitar Observación?</b>
+            <input type="checkbox" value="" data-bind="checked: isViObsvMeterReading" />
+            <div class="form-group col-md-6"  data-bind="visible: isViObsvMeterReading">
+                <input class="text-input obsv-meter-reading-input" type="text"
+                   data-bind="textInput: obsvationsMeterReading,
+                              enterPressed: applyMeterReading,
+                              escapePressed: collapseEditor,
+                              event: {
+                                focus: onInputFocus,
+                                blur: onInputBlur
+                              },
+                              attr: { placeholder: i18n('obsv-meter-reading-input-placeholder') }"/>
+            </div>
+        </div>
+        <div class="form-group col-md-6 activity-block-actions">
+            <div class="left-side">
+                <a data-bind="click: goToDetails, text: i18n('button-details-title')"></a>
+            </div>
+            <div class="right-side">
+                <button class="button button-green"
+                        data-bind="css: { disabled: isApplyButtonDisabled },
+                                   click: applyMeterReading,
+                                   text: i18n('button-apply-title'),
+                                   visible: isActivityEditable">
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
